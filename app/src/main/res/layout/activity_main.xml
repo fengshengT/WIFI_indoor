@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guoyao.myfirstproject.MainActivity"
     android:orientation="vertical">
 
     <Button
@@ -27,5 +26,13 @@
         android:layout_height="wrap_content"
         android:text="获取定位"
         android:textSize="18sp"/>
-
+    <Button
+        android:id="@+id/btn_show_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_context"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="显示一个菜单" />
 </LinearLayout>
+
