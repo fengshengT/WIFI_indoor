@@ -44,8 +44,6 @@ public class TextViewActivity extends AppCompatActivity {
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
-        int j=10;
-        for(;j>0;j--){
             wifiManager.startScan();
             list = wifiManager.getScanResults();
 
@@ -61,7 +59,6 @@ public class TextViewActivity extends AppCompatActivity {
             wifi.append("\n");
             text.setText(sb.toString());
             text.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
-        }
 
     }
 
