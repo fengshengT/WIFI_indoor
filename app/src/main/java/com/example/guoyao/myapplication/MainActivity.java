@@ -68,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
         xzb = (EditText) findViewById(R.id.gid);
         data= findViewById(R.id.data);
 
-        scan_wifi();
-        //getwifi();
+        scanResults=scan_wifi();
+        data.setText("\nWiFi名称:" + scanResults.get(0).SSID +
+                "\nMAC地址:" + scanResults.get(0).BSSID +
+                "\nRSSI:" + scanResults.get(0).level + "\n");
         btn_show_menu = (Button) findViewById(R.id.btn_show_menu);
         btn_show_menu.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -85,19 +87,22 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this,"你点了小猪~",Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.bpig:
-                                Toast.makeText(MainActivity.this,"你点了大猪~",Toast.LENGTH_SHORT).show();getwifi();
-                                try{
-                                    cursor1=sqldata.rawQuery("select * from rss",null);
-                                    gid=cursor1.getInt(cursor1.getColumnIndex("grid"));
-                                    rssi=cursor1.getInt(cursor1.getColumnIndex("rssi"));
-                                    mac=cursor1.getString(cursor1.getColumnIndex("mac"));
-                                    sort=cursor1.getInt(cursor1.getColumnIndex("sort"));
-                                    phone=cursor1.getString(cursor1.getColumnIndex("phone"));
-                                    //data.setText("序号      "+gid+"       坐标             距离    ");
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                data.setText(gid+" "+rssi+" "+mac+" "+sort+" "+phone);
+                                Toast.makeText(MainActivity.this,"你点了大猪~",Toast.LENGTH_SHORT).show();
+                                getwifi();
+                                        try{
+                                            cursor1=sqldata.rawQuery("select * from rss",null);
+                                            while(cursor1.moveToNext()){
+                                                gid=cursor1.getInt(cursor1.getColumnIndex("grid"));
+                                                rssi=cursor1.getInt(cursor1.getColumnIndex("rssi"));
+                                                mac=cursor1.getString(cursor1.getColumnIndex("mac"));
+                                                sort=cursor1.getInt(cursor1.getColumnIndex("sort"));
+                                                phone=cursor1.getString(cursor1.getColumnIndex("phone"));
+                                            }
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+                                for (int i = 0; i < 5; i++)
+                                    data.setText(gid+" "+rssi+" "+mac+" "+sort+" "+phone);
                                 break;
                         }
                         return true;
@@ -171,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         scanResults1 = wifiManager.getScanResults();
         int sor = 0;
         int lev = wifiManager.calculateSignalLevel(scanResults1.get(0).level, 100);
-        for (int i = 0; i < scanResults1.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             int rss = wifiManager.calculateSignalLevel(scanResults1.get(i).level, 100);
             ContentValues values = new ContentValues();
             values.put("grid", Integer.valueOf(xzb.getText().toString()));
