@@ -112,7 +112,7 @@ public class MainActivity<string> extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到TextView演示界面
-                Intent intent = new Intent(MainActivity.this, TextViewActivity.class);
+                Intent intent = new Intent(MainActivity.this, set_areaActivity.class);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class MainActivity<string> extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到Button演示界面
-                Intent intent = new Intent(MainActivity.this, ButtonActivity.class);
+                Intent intent = new Intent(MainActivity.this, locationActivity.class);
                 startActivity(intent);
             }
         });

@@ -25,6 +25,12 @@
         <activity android:name=".ButtonActivity"></activity>
         <activity android:name=".EditTextActivity"></activity>
         <activity android:name=".ResualtActivity"></activity>
+        <activity android:name=".set_areaActivity"></activity>
+        <activity android:name=".area_informationActivity"></activity>
+        <activity android:name=".collect_fignerprintActivity"></activity>
+        <activity android:name=".extend_fignerprintActivity"></activity>
+        <activity android:name=".locationActivity"></activity>
+        <activity android:name=".location_settingActivity"></activity>
     </application>
 
 </manifest>

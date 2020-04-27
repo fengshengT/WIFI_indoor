@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/btn_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:text="采集与管理"
         android:background="@drawable/bg_btn3"
         android:textSize="30sp"/>
@@ -17,7 +17,7 @@
     <Button
         android:id="@+id/btn_button"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="150dp"
         android:text="定位与显示"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/menu12"
