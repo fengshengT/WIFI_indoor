@@ -13,18 +13,17 @@ public class RssDbHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "database.db";
 
-    public static final int DB_VERSION =8;
+    public static final int DB_VERSION =9;
 
     public static final String TABLE_NAME = "rss";
     public Context mcontext;
     //创建 srecord 表的 sql 语句
     private static final String STUDENTS_CREATE_TABLE_SQL = "create table " + TABLE_NAME + "("
             +"id integer primary key autoincrement, "
-            +"grid integer,"
+            +"x_loc integer,"
+            +"y_loc intrger,"
             +"rssi integer, "
             +"mac varchar(30), "
-            +"sort integer,"
-            +"phone varchar(30)"
             + ");";
     public RssDbHelper(Context context) {
         // 传递数据库名与版本号给父类
