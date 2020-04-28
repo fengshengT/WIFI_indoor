@@ -8,27 +8,41 @@
 
     <Button
         android:id="@+id/btn_textview"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="380dp"
+        android:layout_height="180dp"
         android:text="区域位置信息"
-        android:background="@drawable/bg_btn3"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginVertical="10dp"
+        android:drawableTop="@mipmap/main1_1_1"
+        android:background="@drawable/txt_radiuborder"
+
         android:textSize="30sp"/>
 
     <Button
         android:id="@+id/btn_button"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="380dp"
+        android:layout_height="180dp"
         android:text="位置指纹数据采集"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/location1"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginVertical="10dp"
+        android:drawableTop="@mipmap/main1_1_2"
+        android:background="@drawable/txt_radiuborder"
         android:textSize="30sp"/>
 
     <Button
         android:id="@+id/btn_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="380dp"
+        android:layout_height="180dp"
         android:text="位置指纹数据扩充"
-        android:background="@drawable/bg_btn4"
-        android:textSize="18sp"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginVertical="10dp"
+        android:drawableTop="@mipmap/main1_1_3"
+        android:background="@drawable/txt_radiuborder"
+        android:textSize="30sp"/>
 
 </LinearLayout>
