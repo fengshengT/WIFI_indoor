@@ -67,45 +67,6 @@ public class MainActivity<string> extends AppCompatActivity {
         rssDbHelper=new RssDbHelper(this);
         sqldata=rssDbHelper.getWritableDatabase();
         initview();
-        btn_show_menu = (Button) findViewById(R.id.btn_show_menu);
-        btn_show_menu.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(MainActivity.this,btn_show_menu);
-                popup.getMenuInflater().inflate(R.menu.menu_pop, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.lpig:
-                                Toast.makeText(MainActivity.this,"你点了小猪~",Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.bpig:
-                                Toast.makeText(MainActivity.this,"你点了大猪~",Toast.LENGTH_SHORT).show();
-                                getwifi();
-                                        try{
-                                            cursor1=sqldata.rawQuery("select * from rss",null);
-                                            while(cursor1.moveToNext()){
-                                                x_loc=cursor1.getInt(cursor1.getColumnIndex("x_loc"));
-                                                y_loc=cursor1.getInt(cursor1.getColumnIndex("y_loc"));
-                                                rssi=cursor1.getInt(cursor1.getColumnIndex("rssi"));
-                                                name=cursor1.getInt(cursor1.getColumnIndex("name"));
-                                                mac=cursor1.getString(cursor1.getColumnIndex("mac"));
-                                            }
-                                        }catch (Exception e){
-                                            e.printStackTrace();
-                                        }
-                                    data.setText(x_loc+"  "+y_loc+"   "+rssi+"  "+mac+"  ");
-                                break;
-                        }
-                        return true;
-                    }
-                });
-                popup.show();
-            }
-        });
-
 
         mBtnTextView = findViewById(R.id.btn_textview);
         mBtnTextView.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +91,7 @@ public class MainActivity<string> extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到EditText演示界面
-                Intent intent = new Intent(MainActivity.this, EditTextActivity.class);
+                Intent intent = new Intent(MainActivity.this, TextViewActivity.class);
                 startActivity(intent);
             }
         });
