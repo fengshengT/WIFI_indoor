@@ -1,67 +1,99 @@
 package com.example.guoyao.myapplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+public class TextViewActivity extends Activity {
 
-public class TextViewActivity extends AppCompatActivity {
-
-    private TextView mTv1;
     WifiManager wifiManager;
-    TextView text;
-    Handler handler=new Handler();
-    List<ScanResult> list=new ArrayList<>();
-    private List<ScanResult> scanResults = new ArrayList<>();
-//延时函数 by liu 2020-4-23
-    Runnable runnable=new Runnable(){
-        @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            //要做的事情，这里再次调用此Runnable对象，以实现每两秒实现一次的定时器操作
-            handler.postDelayed(this, 2000);
-        }
-    };
-
-
+    List<ScanResult> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_view);
-        text= findViewById(R.id.text);
-
-        ScanResult result;
-        WifiManager wifiManager=(WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
-            wifiManager.startScan();
-            list = wifiManager.getScanResults();
+        wifiManager.startScan();
+        list = wifiManager.getScanResults();
 
-            StringBuilder sb = new StringBuilder("WiFi信息\n");
-            StringBuilder wifi = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                result = (ScanResult) list.get(i);
-                sb.append("\nWiFi名称:" + result.SSID +
-                        "\nMAC地址:" + result.BSSID +
-                        "\nRSSI:" + result.level + "\n");
-                wifi.append(result.level + " ");
+        //初始化数据
+        final List<ListitemAdapter.DataHolder> dataList = new ArrayList<ListitemAdapter.DataHolder>();
+        for (int i = 0; i < list.size(); i++) {
+            dataList.add(new ListitemAdapter.DataHolder(list.get(i).SSID, list.get(i).BSSID+"("+list.get(i).level+")",
+                    false));
+        }
+
+        //构造Adapter
+        final ListitemAdapter adapter = new ListitemAdapter(TextViewActivity.this,dataList);
+
+        //设置adapter
+        final ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO Auto-generated method stub
+                boolean checked = dataList.get(position).checked;
+                if (!checked) {
+                    dataList.get(position).checked = true;
+                }else {
+                    dataList.get(position).checked = false;
+                }
+                adapter.notifyDataSetChanged();
             }
-            wifi.append("\n");
-            text.setText(sb.toString());
-            text.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+        });
+
+        //全选按钮按钮设置
+        Button all_sel = (Button) findViewById(R.id.all_sel);
+        Button all_unsel = (Button) findViewById(R.id.all_unsel);
+        all_sel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                for (int i = 0; i < 5; i++) {
+
+                    dataList.get(i).checked=true;
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        //全部取消的设置
+        all_unsel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                for (int i = 0; i < dataList.size(); i++) {
+                    dataList.get(i).checked=false;
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
-
 }
+
+
+
+
+
 

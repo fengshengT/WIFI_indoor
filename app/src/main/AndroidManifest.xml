@@ -31,6 +31,7 @@
         <activity android:name=".extend_fignerprintActivity"></activity>
         <activity android:name=".locationActivity"></activity>
         <activity android:name=".location_settingActivity"></activity>
+        <activity android:name=".ListitemAdapter"></activity>
     </application>
 
 </manifest>

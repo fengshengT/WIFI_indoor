@@ -3,12 +3,14 @@
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/data"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="定位与显示"
         android:textSize="28sp" />
     <Button
@@ -17,8 +19,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_apshuru"
         android:layout_below="@+id/tv_context"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="6dp"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/data"
         android:text="设置" />
 
 </RelativeLayout>

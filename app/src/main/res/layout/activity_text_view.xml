@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp">
+    android:layout_height="match_parent" >
 
-    <ScrollView
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/text"
-            android:layout_gravity="fill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:background="#BDF6F0"/>
-        <!-- 添加一个ListView控件 -->
-        <ListView
-            android:id="@+id/wifi_list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:dividerHeight="1px"
+        android:textSize="25sp"/>
+        android:scrollbars="none" />
 
-</LinearLayout>
+    <Button android:id="@+id/all_sel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dip"
+        android:layout_gravity="bottom"
+        android:text="选择前5个"
+        />
+    <Button android:id="@+id/all_unsel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="取消"/>
+</FrameLayout>

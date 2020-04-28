@@ -7,7 +7,7 @@
     android:orientation="vertical">
     <Button
         android:id="@+id/btn_textview"
-        android:layout_width="360dp"
+        android:layout_width="380dp"
         android:layout_height="150dp"
         android:text="采集与管理"
         android:layout_marginTop="20dp"
@@ -18,7 +18,7 @@
 
         <Button
             android:id="@+id/btn_button"
-            android:layout_width="360dp"
+            android:layout_width="380dp"
             android:layout_height="150dp"
             android:text="定位与显示"
             android:layout_centerHorizontal="true"
@@ -35,18 +35,18 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_edittext"
-            android:layout_width="235dp"
+            android:layout_width="250dp"
             android:layout_height="130dp"
             android:text="查看附近接入点"
             android:layout_gravity="left"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:drawableTop="@mipmap/main1_3"
             android:background="@drawable/txt_radiuborder"
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btn_show_menu"
-            android:layout_width="115dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:drawableTop="@mipmap/main1_4"
             android:background="@drawable/txt_radiuborder"

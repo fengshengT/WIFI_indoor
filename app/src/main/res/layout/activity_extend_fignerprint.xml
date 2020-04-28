@@ -10,6 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="位置指纹库扩充"
+        android:layout_marginTop="8dp"
         android:textSize="28sp" />
-
 </RelativeLayout>
