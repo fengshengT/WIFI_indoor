@@ -23,7 +23,7 @@ public class set_areaActivity <string> extends AppCompatActivity {
         mBtnTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到TextView演示界面
+                //跳转到area_informationActivity演示界面
                 Intent intent = new Intent(set_areaActivity.this, area_informationActivity.class);
                 startActivity(intent);
             }

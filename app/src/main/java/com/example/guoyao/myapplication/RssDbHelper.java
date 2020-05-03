@@ -13,7 +13,7 @@ public class RssDbHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "database.db";
 
-    public static final int DB_VERSION =9;
+    public static final int DB_VERSION =10;
 
     public static final String TABLE_NAME = "rss";
     public Context mcontext;
@@ -22,8 +22,16 @@ public class RssDbHelper extends SQLiteOpenHelper {
             +"id integer primary key autoincrement, "
             +"x_loc integer,"
             +"y_loc intrger,"
-            +"rssi integer, "
-            +"mac varchar(30), "
+            +"rssi1 integer, "
+            +"mac1 varchar(30),"
+            +"rssi2 integer, "
+            +"mac2 varchar(30),"
+            +"rssi3 integer, "
+            +"mac3 varchar(30),"
+            +"rssi4 integer, "
+            +"mac4 varchar(30),"
+            +"rssi5 integer, "
+            +"mac5 varchar(30)"
             + ");";
     public RssDbHelper(Context context) {
         // 传递数据库名与版本号给父类

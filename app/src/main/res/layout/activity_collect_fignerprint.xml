@@ -40,5 +40,11 @@
         android:maxLines="1"
         android:layout_marginTop="120dp"
         android:inputType="numberSigned" />
-
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试"
+        android:layout_marginTop="180dp"
+        android:textSize="28sp" />
 </RelativeLayout>

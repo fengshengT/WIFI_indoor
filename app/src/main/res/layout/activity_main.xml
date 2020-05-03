@@ -50,7 +50,7 @@
             android:layout_height="170dp"
             android:drawableTop="@mipmap/main1_4"
             android:background="@drawable/txt_radiuborder"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="13dp"
             android:text="设置" />
     </LinearLayout>
     </LinearLayout>

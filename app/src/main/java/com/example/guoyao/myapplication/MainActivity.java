@@ -48,15 +48,6 @@ public class MainActivity<string> extends AppCompatActivity {
     private Button btn_show_menu; //显示大猪 小猪
     TextView data;
 
-    int x_loc;
-    int y_loc;
-    int rssi;
-    String mac;
-    int sort;
-    int name;
-    String phone;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,36 +93,6 @@ public class MainActivity<string> extends AppCompatActivity {
         x_num = (EditText) findViewById(R.id.x_loc);
         y_num = (EditText) findViewById(R.id.y_loc);
         data= findViewById(R.id.data);
-    }
-
-    //将扫描的WiFi存入sqlite
-    public void getwifi() {
-        List<ScanResult> scanResults1 = new ArrayList<>();
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-        }
-        wifiManager.startScan();
-        scanResults1 = wifiManager.getScanResults();
-        int sor = 0;
-        int lev = wifiManager.calculateSignalLevel(scanResults1.get(0).level, 100);
-        data.setText("\nWiFi名称:" + scanResults1.get(0).SSID +
-                "\nMAC地址:" + scanResults1.get(0).BSSID +
-                "\nRSSI:" + scanResults1.get(0).level + "\n");
-        for (int i = 0; i < 5; i++) {
-            int rss = wifiManager.calculateSignalLevel(scanResults1.get(i).level, 100);
-            ContentValues values = new ContentValues();
-            values.put("x_loc", Integer.valueOf(x_num.getText().toString()));
-            values.put("y_loc", Integer.valueOf(y_num.getText().toString()));
-            values.put("rssi", scanResults1.get(i).level);
-            values.put("mac", scanResults1.get(i).BSSID);
-            try {
-                sqldata.insert("rss", null, values);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            values.clear();
-        }
     }
 
 }
