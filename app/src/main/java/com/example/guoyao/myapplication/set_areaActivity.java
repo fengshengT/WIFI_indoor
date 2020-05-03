@@ -42,7 +42,7 @@ public class set_areaActivity <string> extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转到EditText演示界面
-                Intent intent = new Intent(set_areaActivity.this, extend_fignerprintActivity.class);
+                Intent intent = new Intent(set_areaActivity.this, ButtonActivity.class);
                 startActivity(intent);
             }
         });

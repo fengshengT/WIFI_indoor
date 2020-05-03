@@ -55,6 +55,7 @@ public class PinView extends SubsamplingScaleImageView {
         w = (density / 6000) * completedPin.getWidth();
         h = (density / 6000f) * completedPin.getHeight();
         completedPin = Bitmap.createScaledBitmap(completedPin, (int) w, (int) h, true);
+
     }
 
     public void addFingerprintPoint(Fingerprint f) {
