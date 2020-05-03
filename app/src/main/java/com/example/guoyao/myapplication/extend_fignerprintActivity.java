@@ -6,11 +6,25 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
 
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
 public class extend_fignerprintActivity extends AppCompatActivity {
+
+
+    private RadioButton typeRadioButton;
+    private Button startButton;
+
+    private EditText strideEdit;
+    private EditText xEdit;
+    private EditText yEdit;
+    private TextView xTextView;
+    private TextView yTextView;
+
 
     TextView data;
     static double interval = 1;             //格子间隔
