@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.example.guoyao.myapplication.collectorservice.Fingerprint;
 import com.example.guoyao.myapplication.mapview.PinView;
 
 
@@ -133,6 +134,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private static final String MAP_PATH = "map_path";
     private static final String MAP_WIDTH = "width";
     private static final String MAP_height = "height";
+
 
     private boolean tryLoadOldMap() {
         SharedPreferences sharedPreferences = getSharedPreferences(MAP_INFO, MODE_PRIVATE);
@@ -325,7 +327,12 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
             });
         }
     }
-
+    public void show_complete(int x,int y){
+        Fingerprint fingerprint = new Fingerprint(x, y);
+        fingerprint.x=x;
+        fingerprint.y=y;
+        mapView.addFingerprintPoint(fingerprint);
+    }
     private boolean ifUserInput = true;
 
     private void setTextWithoutTriggerListener() {
@@ -333,7 +340,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
 
         xEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().x));
         yEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().y));
-
         ifUserInput = true;
     }
 
