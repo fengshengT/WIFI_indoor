@@ -119,7 +119,7 @@ android:orientation="vertical">
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="开始测量"
+        android:text="开始扩充"
         android:textSize="24sp"/>
 
     <Button

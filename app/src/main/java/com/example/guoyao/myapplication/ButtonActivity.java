@@ -37,6 +37,7 @@ import com.example.guoyao.myapplication.mapview.PinView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /***
@@ -86,6 +87,14 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         requestPermissionBeforeStart();
+    }
+
+
+    private void startExtendData() {
+        setGestureDetectorListener(false);
+        startButton.setClickable(false);
+        startButton.setText("正在扩充...");
+
     }
 
     //To solve some phone's cannot get the position permission, result will invoke "onRequestPermissionsResult"
@@ -193,6 +202,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_collect:
+                startExtendData();
                 break;
             case R.id.pick_map_button:
                 selectMapFromPhone();

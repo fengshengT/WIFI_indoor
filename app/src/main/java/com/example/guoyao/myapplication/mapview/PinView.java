@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -28,7 +30,7 @@ public class PinView extends SubsamplingScaleImageView {
 
     private Bitmap currentPin;
     private Bitmap completedPin;
-    private Bitmap beaconPin;
+    static int flag=0;
 
     private CoordManager coordManager;
 
@@ -55,6 +57,7 @@ public class PinView extends SubsamplingScaleImageView {
         w = (density / 6000) * completedPin.getWidth();
         h = (density / 6000f) * completedPin.getHeight();
         completedPin = Bitmap.createScaledBitmap(completedPin, (int) w, (int) h, true);
+        flag++;
 
     }
 
@@ -110,7 +113,7 @@ public class PinView extends SubsamplingScaleImageView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
 
         // Don't draw pin before image is ready so it doesn't move around during setup.
@@ -125,15 +128,39 @@ public class PinView extends SubsamplingScaleImageView {
             float vX = vPin.x - (currentPin.getWidth() / 2);
             float vY = vPin.y - (currentPin.getHeight() / 2);
             canvas.drawBitmap(currentPin, vX, vY, paint);
+            flag++;
         }
 
-        if (fingerprintPoints != null && completedPin != null)
-            for (PointF pointF : fingerprintPoints) {
-                sourceToViewCoord(pointF, vPin);
-                float vX = vPin.x - (completedPin.getWidth() / 2);
-                float vY = vPin.y - (completedPin.getHeight() / 2);
-                canvas.drawBitmap(completedPin, vX, vY, paint);
+        if (completedPin != null) {
+            float density = getResources().getDisplayMetrics().densityDpi;
+            completedPin = BitmapFactory.decodeResource(this.getResources(), R.drawable.completed_point);
+            float w = (density / 6000) * completedPin.getWidth();
+            float h = (density / 6000f) * completedPin.getHeight();
+            completedPin = Bitmap.createScaledBitmap(completedPin, (int) w, (int) h, true);
+            canvas.drawBitmap(completedPin, 4 * 110 - 50, 5 * 125 + 95, paint);  //显示(4,5)
+            canvas.drawBitmap(completedPin, 2 * 110 - 50, 2 * 125 + 95, paint);  //显示(2,2)
+            canvas.drawBitmap(completedPin, 6 * 110 - 50, 4 * 125 + 95, paint);  //显示(6,4)
             }
+        if(flag>3) {
+            float density = getResources().getDisplayMetrics().densityDpi;
+            completedPin = BitmapFactory.decodeResource(this.getResources(), R.drawable.completed_point);
+            float w = (density / 6000) * completedPin.getWidth();
+            float h = (density / 6000f) * completedPin.getHeight();
+            completedPin = Bitmap.createScaledBitmap(completedPin, (int) w, (int) h, true);
+            for (int i = 1; i < 10; i++)
+                for (int j = 1; j < 7; j++) {
+                    try {
+                        Thread.currentThread().sleep(10);//阻断1秒
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    canvas.drawBitmap(completedPin, i * 110 - 50, j * 125 + 95, paint);
+                }
+            ;
+        }
+    }
+    public void show_complete() {
+
     }
 
     @Override
