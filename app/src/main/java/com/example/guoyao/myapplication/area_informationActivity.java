@@ -87,15 +87,12 @@ public void  add_area() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             id.setText("序号(id)："+1);
-            name.setText("区域名称："+String.valueOf(editMap_name.getText().toString()));
+            name.setText("区域名称："+editMap_name.getText().toString());
             height.setText("区域长度："+Float.valueOf(editMapHeight.getText().toString()));
             width.setText("区域宽度："+Float.valueOf(editMapWidth.getText().toString()));
             map.setText("区域地图："+"null");
-            decrible.setText("区域描述："+"轻轨站");
+            decrible.setText("区域描述："+"null");
             state.setText("区域状态："+"false");
-            float width = Float.valueOf(editMapWidth.getText().toString());
-            float height = Float.valueOf(editMapHeight.getText().toString());
-
         }
     });
 
@@ -123,8 +120,9 @@ public void  add_area() {
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String width = String.valueOf(editMap_name.getText().toString());
-                edit_area1();
+                String map_name=editMap_name.getText().toString();
+                name.setText("区域名称："+editMap_name.getText().toString());
+                edit_area1(map_name);
             }
         });
 
@@ -137,22 +135,33 @@ public void  add_area() {
 
         builder.show();
     }
-    public void  edit_area1() {
+    public void  edit_area1(final String map_name) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("当前区域"+10);
+        builder.setTitle("当前区域："+map_name);
         LayoutInflater inflater = this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.activity_delete_area1, null);
+        final View view = inflater.inflate(R.layout.activity_edit_area2, null);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(view);
 
-        final EditText editMapWidth = view.findViewById(R.id.map_name);
+        final EditText editMapWidth = view.findViewById(R.id.map_width);
+        final EditText editMapHeight = view.findViewById(R.id.map_height);
+        final EditText editMap_id = view.findViewById(R.id.map_id);
+        final EditText editMap_map = view.findViewById(R.id.map);
+        final EditText editMap_decribe = view.findViewById(R.id.map_decrible);
+        final EditText editMap_state = view.findViewById(R.id.map_state);
 
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                float width = Float.valueOf(editMapWidth.getText().toString());
+                id.setText("序号(id)："+Integer.valueOf(editMap_id.getText().toString()));
+                name.setText("区域名称："+map_name);
+                height.setText("区域长度："+Float.valueOf(editMapHeight.getText().toString()));
+                width.setText("区域宽度："+Float.valueOf(editMapWidth.getText().toString()));
+                map.setText("区域地图："+editMap_map.getText().toString());
+                decrible.setText("区域描述："+editMap_decribe.getText().toString());
+                state.setText("区域状态："+editMap_state.getText().toString());
             }
         });
 
@@ -169,7 +178,7 @@ public void  add_area() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("删除定位区域 ");
         LayoutInflater inflater = this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.activity_edit_area1, null);
+        final View view = inflater.inflate(R.layout.activity_delete_area, null);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -180,8 +189,14 @@ public void  add_area() {
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String width = String.valueOf(editMap_name.getText().toString());
-                edit_area1();
+                id.setText("序号(id)：");
+                name.setText("区域名称：");
+                height.setText("区域长度：");
+                width.setText("区域宽度：");
+                map.setText("区域地图：");
+                decrible.setText("区域描述：");
+                state.setText("区域状态：");
+
             }
         });
 
