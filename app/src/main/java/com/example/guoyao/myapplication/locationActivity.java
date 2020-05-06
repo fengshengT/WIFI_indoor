@@ -37,8 +37,7 @@ public class locationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         menu.add(1, YELLOW, 1, "选择定位区域");
-        menu.add(1, GREEN, 2, "选择定位算法");
-        menu.add(1, BLUE, 3, "自动定位模式");
+        menu.add(1, GREEN, 2, "定位设置");
         return true;
     }
     @Override
@@ -48,9 +47,6 @@ public class locationActivity extends AppCompatActivity {
             case GREEN:
                 select_algorithm();
                 break;
-            case BLUE:
-                //delect_area();
-                break;
             case YELLOW:
                 select_area();
                 break;
@@ -59,7 +55,7 @@ public class locationActivity extends AppCompatActivity {
     }
     public void  select_area() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("添加定位采集区域 ");
+        builder.setTitle("选择定位区域 ");
         LayoutInflater inflater = this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.activity_add_area, null);
 
@@ -85,7 +81,7 @@ public class locationActivity extends AppCompatActivity {
 
     public void  select_algorithm() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("选择定位算法 ");
+        builder.setTitle("设置 ");
         LayoutInflater inflater = this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.activity_location_setting, null);
 

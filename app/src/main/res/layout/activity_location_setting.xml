@@ -6,34 +6,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_textview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="选择定位区域"
-        android:background="@drawable/bg_btn3"
-        android:textSize="30sp"/>
+        android:layout_height="match_parent"
+        android:layout_marginStart="5sp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="定位算法"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="EWKNN"
+            android:textSize="24sp"/>
 
 
-    <Button
-        android:id="@+id/btn_show_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_apshuru"
-        android:layout_below="@+id/tv_context"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="选择定位算法" />
+        <RadioButton
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="WKNN"
+            android:textSize="24sp"/>
+    </RadioGroup>
+    </LinearLayout>
 
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
         android:textOn=""
         android:textOff=""
         android:text="自动定位模式"
-        android:textSize="25sp"
+        android:textSize="24sp"
         android:switchMinWidth="65dp"
+        android:layout_marginTop="20dp"
         android:track="@drawable/track" />
 
 

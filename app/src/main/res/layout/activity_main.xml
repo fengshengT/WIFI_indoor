@@ -37,7 +37,7 @@
             android:id="@+id/btn_edittext"
             android:layout_width="250dp"
             android:layout_height="170dp"
-            android:text="查看附近接入点"
+            android:text="选择接入点"
             android:layout_gravity="left"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
