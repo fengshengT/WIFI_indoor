@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -67,7 +68,6 @@ public class TextViewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 for (int i = 0; i < 5; i++) {
-
                     dataList.get(i).checked=true;
                 }
 
@@ -80,11 +80,8 @@ public class TextViewActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                for (int i = 0; i < dataList.size(); i++) {
-                    dataList.get(i).checked=false;
-                }
-                adapter.notifyDataSetChanged();
+                Intent intent = new Intent(TextViewActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

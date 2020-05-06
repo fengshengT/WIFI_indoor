@@ -13,15 +13,5 @@
         android:layout_marginTop="10dp"
         android:text="定位与显示"
         android:textSize="28sp" />
-    <Button
-        android:id="@+id/btn_show_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_apshuru"
-        android:layout_below="@+id/tv_context"
-        android:layout_marginTop="6dp"
-        android:textSize="18sp"
-        android:layout_toRightOf="@id/data"
-        android:text="设置" />
 
 </RelativeLayout>

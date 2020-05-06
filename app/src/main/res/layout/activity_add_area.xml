@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
+        android:textSize="18sp"
         android:text="区域名称" />
 
     <EditText
@@ -21,7 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:text="区域长度" />
+        android:textSize="18sp"
+        android:text="区域长度（米）" />
 
     <EditText
         android:layout_width="match_parent"
@@ -33,7 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:text="区域宽度" />
+        android:textSize="18sp"
+        android:text="区域宽度（米）" />
 
     <EditText
         android:layout_width="match_parent"

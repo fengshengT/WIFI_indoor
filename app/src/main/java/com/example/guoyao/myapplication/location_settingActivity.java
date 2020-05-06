@@ -51,6 +51,8 @@ public class location_settingActivity <string> extends AppCompatActivity {
         });
 
     }
+
+
     //关联控件与行为
     public void initview() {
         data= findViewById(R.id.data);

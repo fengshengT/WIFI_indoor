@@ -25,14 +25,18 @@
         android:layout_marginTop="20dp"
         android:text="选择定位算法" />
 
-    <Button
-        android:id="@+id/btn_button"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:text="开启自动定位模式"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_apshuru"
-        android:textSize="30sp"/>
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn=""
+        android:textOff=""
+        android:text="自动定位模式"
+        android:textSize="25sp"
+        android:switchMinWidth="65dp"
+        android:track="@drawable/track" />
+
+
 
 </LinearLayout>
 

@@ -7,4 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <string name="help_data">"你可以选择采集或者扩充模式"</string>
+    <string name="help_stride">1、你可以直接输入x/y坐标来确定位置 2、你可以单击地图来选择位置(每次移动方格间距的长度)</string>
 </resources>

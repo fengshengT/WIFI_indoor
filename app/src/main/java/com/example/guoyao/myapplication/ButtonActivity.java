@@ -207,6 +207,12 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.pick_map_button:
                 selectMapFromPhone();
                 break;
+            case R.id.help_stride:
+                Toast.makeText(ButtonActivity.this,getResources().getString(R.string.help_stride),Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.help_data:
+                Toast.makeText(ButtonActivity.this,getResources().getString(R.string.help_data),Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
