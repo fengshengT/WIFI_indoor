@@ -20,28 +20,16 @@
 
         android:textSize="30sp"/>
 
-    <Button
-        android:id="@+id/btn_button"
-        android:layout_width="380dp"
-        android:layout_height="180dp"
-        android:text="位置指纹数据采集"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginVertical="10dp"
-        android:drawableTop="@mipmap/main1_1_2"
-        android:background="@drawable/txt_radiuborder"
-        android:textSize="30sp"/>
 
     <Button
         android:id="@+id/btn_edittext"
         android:layout_width="380dp"
         android:layout_height="180dp"
-        android:text="位置指纹数据扩充"
+        android:text="采集与扩充"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginVertical="10dp"
-        android:drawableTop="@mipmap/main1_1_3"
+        android:drawableTop="@mipmap/main1_1_2"
         android:background="@drawable/txt_radiuborder"
         android:textSize="30sp"/>
 

@@ -2,7 +2,6 @@ package com.example.guoyao.myapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -12,12 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Timer;
 
 public class locationActivity extends AppCompatActivity {
 
     TextView data;
+    private Timer timer;
     private Button btn_show_menu;
 
     //1.定义不同菜单项的标识:
@@ -53,17 +55,25 @@ public class locationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void  select_area() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("选择定位区域 ");
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.activity_add_area, null);
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(view);
+    public void select_area(){
+    // 通过builder 构建器来构造
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("选择定位区域");
 
-        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+    final String items[] = { "二塘", "教学楼1", "教学楼2"};
+
+    // -1代表没有条目被选中
+		builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+
+        public void onClick(DialogInterface dialog, int which) {
+
+            // [1]把选择的条目给取出来
+            final String item = items[which];
+
+            Toast.makeText(getApplicationContext(), item, 1).show();
+        }
+    });builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -75,7 +85,7 @@ public class locationActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
+        // 最后一步 一定要记得 和Toast 一样 show出来
         builder.show();
     }
 

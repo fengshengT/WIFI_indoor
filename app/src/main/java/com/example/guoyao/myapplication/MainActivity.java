@@ -34,6 +34,7 @@ public class MainActivity<string> extends AppCompatActivity {
     private Button mBtnTextView;
     private Button mBtnButton;
     private Button mBtnEditText;
+    private Button mSetting;
     WifiManager wifiManager;
     Handler handler;
     Runnable runnable;
@@ -86,12 +87,20 @@ public class MainActivity<string> extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mSetting = findViewById(R.id.mSetting);
+        mSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到EditText演示界面
+                Intent intent = new Intent(MainActivity.this, setting_Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
    //关联控件与行为
     public void initview() {
-        x_num = (EditText) findViewById(R.id.x_loc);
-        y_num = (EditText) findViewById(R.id.y_loc);
         data= findViewById(R.id.data);
     }
 

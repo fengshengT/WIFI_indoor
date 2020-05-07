@@ -11,7 +11,6 @@ import android.widget.Button;
 public class set_areaActivity <string> extends AppCompatActivity {
 
     private Button mBtnTextView;
-    private Button mBtnButton;
     private Button mBtnEditText;
 
 
@@ -25,15 +24,6 @@ public class set_areaActivity <string> extends AppCompatActivity {
             public void onClick(View v) {
                 //跳转到area_informationActivity演示界面
                 Intent intent = new Intent(set_areaActivity.this, area_informationActivity.class);
-                startActivity(intent);
-            }
-        });
-        mBtnButton = findViewById(R.id.btn_button);
-        mBtnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //跳转到Button演示界面
-                Intent intent = new Intent(set_areaActivity.this, collect_fignerprintActivity.class);
                 startActivity(intent);
             }
         });

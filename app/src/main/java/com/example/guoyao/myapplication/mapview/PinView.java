@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -149,16 +150,12 @@ public class PinView extends SubsamplingScaleImageView {
             completedPin = Bitmap.createScaledBitmap(completedPin, (int) w, (int) h, true);
             for (int i = 1; i < 10; i++)
                 for (int j = 1; j < 7; j++) {
-                    try {
-                        Thread.currentThread().sleep(10);//阻断1秒
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    SystemClock.sleep(50);
                     canvas.drawBitmap(completedPin, i * 110 - 50, j * 125 + 95, paint);
                 }
-            ;
         }
     }
+
     public void show_complete() {
 
     }

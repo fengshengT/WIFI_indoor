@@ -25,30 +25,6 @@ public class location_settingActivity <string> extends AppCompatActivity {
         setContentView(R.layout.activity_location_setting);
 
         initview();
-        btn_show_menu = (Button) findViewById(R.id.btn_show_menu);
-        btn_show_menu.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(location_settingActivity.this,btn_show_menu);
-                popup.getMenuInflater().inflate(R.menu.menu_pop, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.lpig:
-                                Toast.makeText(location_settingActivity.this,"你选择了WKNN算法",Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.bpig:
-                                Toast.makeText(location_settingActivity.this,"你选择了EWKNN算法~",Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                        return true;
-                    }
-                });
-                popup.show();
-            }
-        });
 
     }
 

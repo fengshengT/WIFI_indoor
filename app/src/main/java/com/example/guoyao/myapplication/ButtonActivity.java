@@ -93,8 +93,42 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private void startExtendData() {
         setGestureDetectorListener(false);
         startButton.setClickable(false);
-        startButton.setText("正在扩充...");
+        //startButton.setText("正在扩充...");
+        select_area();
 
+    }
+
+    public void select_area(){
+        // 通过builder 构建器来构造
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("选择定位区域");
+
+        final String items[] = { "二塘", "教学楼1", "教学楼2"};
+
+        // -1代表没有条目被选中
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                // [1]把选择的条目给取出来
+                final String item = items[which];
+
+                Toast.makeText(getApplicationContext(), item, 1).show();
+            }
+        });builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        // 最后一步 一定要记得 和Toast 一样 show出来
+        builder.show();
     }
 
     //To solve some phone's cannot get the position permission, result will invoke "onRequestPermissionsResult"
