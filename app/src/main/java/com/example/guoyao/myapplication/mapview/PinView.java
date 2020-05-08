@@ -156,9 +156,6 @@ public class PinView extends SubsamplingScaleImageView {
         }
     }
 
-    public void show_complete() {
-
-    }
 
     @Override
     public boolean performClick() {

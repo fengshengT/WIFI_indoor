@@ -1,11 +1,20 @@
 package com.example.guoyao.myapplication;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +27,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.example.guoyao.myapplication.mapview.PinView;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
+
 import github.ishaan.buttonprogressbar.ButtonProgressBar;
 
 public class area_informationActivity extends AppCompatActivity
@@ -28,17 +44,20 @@ public class area_informationActivity extends AppCompatActivity
 
     TextView data,id,name,height,width,map,decrible,state;
     private static final int REQUEST_PICK_MAP = 1;
+    private static final int REQUEST_PERMISSION_CODE = 2;
 
     //1.定义不同菜单项的标识:
     final private int RED = 110;
     final private int GREEN = 111;
     final private int BLUE = 112;
     final private int YELLOW = 113;
+    private PinView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_information);
+        mapView = findViewById(R.id.mapImageView);
         mLoader = (ButtonProgressBar) findViewById(R.id.cl_main);
         init();
 
@@ -265,43 +284,18 @@ public void  add_area() {
         builder.show();
     }
 
+
+    private static final String MAP_INFO = "map_info";
+    private static final String MAP_PATH = "map_path";
+    private static final String MAP_WIDTH = "width";
+    private static final String MAP_height = "height";
+
+
     public void selectMapFromPhone() {
         Toast.makeText(area_informationActivity.this,"请选择一张图片",Toast.LENGTH_SHORT).show();
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_PICK_MAP);  //one can be replaced with any action code
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch (requestCode) {
-            case REQUEST_PICK_MAP:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = imageReturnedIntent.getData();
-                } else {
-                    this.finish();
-                    Toast.makeText(area_informationActivity.this,"你必须选择加入地图来进行定位",Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
-    //Pick picture from gallery is a uri not the actual file.
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-
-        return result;
     }
 
 }

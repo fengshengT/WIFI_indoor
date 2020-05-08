@@ -37,7 +37,6 @@ import com.example.guoyao.myapplication.mapview.PinView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
 
 /***
@@ -93,7 +92,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private void startExtendData() {
         setGestureDetectorListener(false);
         startButton.setClickable(false);
-        //startButton.setText("正在扩充...");
         select_area();
 
     }
