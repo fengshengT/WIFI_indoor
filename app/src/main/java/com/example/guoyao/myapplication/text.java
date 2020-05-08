@@ -5,26 +5,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import github.ishaan.buttonprogressbar.ButtonProgressBar;
-
-public class area_informationActivity extends AppCompatActivity
-        implements View.OnClickListener{
-
-    private ButtonProgressBar mLoader;
-    private int progress = 0;
+public class text extends AppCompatActivity {
 
     TextView data,id,name,height,width,map,decrible,state;
     private static final int REQUEST_PICK_MAP = 1;
@@ -39,54 +31,9 @@ public class area_informationActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_information);
-        mLoader = (ButtonProgressBar) findViewById(R.id.cl_main);
-        init();
-
-    }
-    private void init() {
-        mLoader.setOnClickListener(this);
-    }
-
-    private void callHandler() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (progress <= 100) {
-                    updateUI();
-                    progress++;
-                    callHandler();
-                } else {
-                    progress = 0;
-                    Toast.makeText(area_informationActivity.this, "完成", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, 30);
-    }
-
-    public void updateUI() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mLoader.setProgress(progress);
-            }
-        });
-    }
 
 
-    public void onClick(View v) {
-        if (mLoader.getLoaderType() == ButtonProgressBar.Type.DETERMINATE) {
-            callHandler();
-        } else {
-            mLoader.startLoader();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mLoader.stopLoader();
-                    Toast.makeText(area_informationActivity.this, "完成", Toast.LENGTH_SHORT).show();
-                }
-            }, 5000);
-        }
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         data= (TextView)findViewById(R.id.data);
@@ -266,9 +213,9 @@ public void  add_area() {
     }
 
     public void selectMapFromPhone() {
-        Toast.makeText(area_informationActivity.this,"请选择一张图片",Toast.LENGTH_SHORT).show();
+        Toast.makeText(text.this,"请选择一张图片",Toast.LENGTH_SHORT).show();
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_PICK_MAP);  //one can be replaced with any action code
     }
     @Override
@@ -280,7 +227,7 @@ public void  add_area() {
                     Uri selectedImage = imageReturnedIntent.getData();
                 } else {
                     this.finish();
-                    Toast.makeText(area_informationActivity.this,"你必须选择加入地图来进行定位",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(text.this,"你必须选择加入地图来进行定位",Toast.LENGTH_SHORT).show();
                 }
                 break;
 

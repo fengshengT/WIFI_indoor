@@ -92,7 +92,7 @@ android:orientation="vertical">
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="X(长度)"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/position_x"
@@ -109,7 +109,7 @@ android:orientation="vertical">
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="Y(宽度)"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/position_y"

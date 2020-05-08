@@ -34,6 +34,7 @@
         <activity android:name=".location_settingActivity"></activity>
         <activity android:name=".setting_Activity"></activity>
         <activity android:name=".ListitemAdapter"></activity>
+        <activity android:name=".text"></activity>
     </application>
 
 </manifest>

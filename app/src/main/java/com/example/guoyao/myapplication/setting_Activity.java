@@ -1,11 +1,11 @@
 package com.example.guoyao.myapplication;
+
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +24,6 @@ public class setting_Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         mLoader = (ButtonProgressBar) findViewById(R.id.cl_main);
-       // mLoaderTypeSp.setAdapter(adapter);
         mLoaderTypeSp = (Spinner) findViewById(R.id.sp_select_type);
         mLoaderTypeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -39,10 +38,8 @@ public class setting_Activity extends AppCompatActivity
             }
         });
 
-
         init();
     }
-
 
     private void init() {
         //mLoaderTypeSp.setOnItemSelectedListener(this);
