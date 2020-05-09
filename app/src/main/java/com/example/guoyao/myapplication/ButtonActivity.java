@@ -446,7 +446,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private void setTextWithoutTriggerListener() {
         ifUserInput = false;
 
-        xEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().x));
+        xEdit.setText(String.format(Locale.ENGLISH, "%.2f",mapView.getCurrentTCoord().x));
         yEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().y));
 
         ifUserInput = true;

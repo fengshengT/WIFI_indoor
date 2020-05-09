@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +29,16 @@ import com.example.guoyao.myapplication.mapview.PinView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Timer;
 
 public class locationActivity extends AppCompatActivity {
 
     TextView data,result;
     private Timer timer;
+    private PinView mapView;
+    private EditText xEdit;
+    private EditText yEdit;
     private Button btn_show_menu;
 
     //1.定义不同菜单项的标识:
@@ -44,11 +51,47 @@ public class locationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         mapView = findViewById(R.id.mapImageView);
+        xEdit = findViewById(R.id.position_x);
+        yEdit = findViewById(R.id.position_y);
+        xEdit.addTextChangedListener(textWatcher);
+        yEdit.addTextChangedListener(textWatcher);
         data= (TextView)findViewById(R.id.data);
         result= (TextView)findViewById(R.id.result);
         data.setText("定位与显示");
-        result.setText("定位结果(单位:m)为: "+"("+1.1234+","+1.1234+")");
         tryLoadOldMap();
+        result.setText("定位结果(单位:m)为: ");
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+       if (ifUserInput) {
+                if (!xEdit.getText().toString().equals("") && !yEdit.getText().toString().equals("")) {
+                    PointF p = new PointF(Float.valueOf(xEdit.getText().toString()),
+                            Float.valueOf(yEdit.getText().toString()));
+                    mapView.setCurrentTPosition(p);
+                }
+            }
+        }
+    };
+    private boolean ifUserInput = true;
+    private void setTextWithoutTriggerListener() {
+        ifUserInput = false;
+
+        xEdit.setText(String.format(Locale.ENGLISH, "%.2f",mapView.getCurrentTCoord().x));
+        yEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().y));
+
+        ifUserInput = true;
     }
 
     private static final String MAP_INFO = "map_info";
@@ -84,7 +127,6 @@ public class locationActivity extends AppCompatActivity {
         }
     }
 
-    private PinView mapView;
     private GestureDetector gestureDetector = null;
 
     private void setGestureDetectorListener(boolean enable) {
