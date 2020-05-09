@@ -31,12 +31,18 @@ import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.example.guoyao.myapplication.collectorservice.Fingerprint;
+import com.example.guoyao.myapplication.collectorservice.IndoorCollectManager;
 import com.example.guoyao.myapplication.mapview.PinView;
+import com.example.guoyao.myapplication.utils.Logger;
+import com.example.guoyao.myapplication.collectorservice.XWiFi;
+
 
 
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /***
@@ -60,6 +66,8 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private TextView xTextView;
     private TextView yTextView;
 
+    private IndoorCollectManager indoorCollectManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +90,9 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         typeRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                checkFinishedPoints();
             }
         });
-
         requestPermissionBeforeStart();
     }
 
@@ -93,7 +101,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         setGestureDetectorListener(false);
         startButton.setClickable(false);
         select_area();
-
     }
 
     public void select_area(){
@@ -147,6 +154,8 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
                                 Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_CODE);
             }
         } else {
+            indoorCollectManager = new IndoorCollectManager(this);
+            indoorCollectManager.startCollectService();
 
             if (!tryLoadOldMap())
                 selectMapFromPhone();
@@ -160,11 +169,13 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    indoorCollectManager = new IndoorCollectManager(this);
+                    indoorCollectManager.startCollectService();
                     if (!tryLoadOldMap())
                         selectMapFromPhone();
                 } else {
                     // permission denied could not use this app
-                    Toast.makeText(ButtonActivity.this,"应用未获得权限",Toast.LENGTH_SHORT).show();
+                    showToast("应用未获得权限");
                     ButtonActivity.this.finish();
                 }
             }
@@ -176,7 +187,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     private static final String MAP_WIDTH = "width";
     private static final String MAP_height = "height";
 
-
     private boolean tryLoadOldMap() {
         SharedPreferences sharedPreferences = getSharedPreferences(MAP_INFO, MODE_PRIVATE);
         String path = sharedPreferences.getString(MAP_PATH, null);
@@ -186,7 +196,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
             float width = sharedPreferences.getFloat(MAP_WIDTH, 0);
             float height = sharedPreferences.getFloat(MAP_height, 0);
             loadMapImage(Uri.fromFile(new File(path)), width, height);
-
             return true;
         }
     }
@@ -215,7 +224,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         public void afterTextChanged(Editable editable) {
             if (editable.hashCode() == strideEdit.getText().hashCode()) {
                 if (strideEdit.getText().toString().trim().equals("")) {
-                    Toast.makeText(ButtonActivity.this,"间隔不能未空",Toast.LENGTH_SHORT).show();
+                    showToast("间隔不能未空");
                 } else {
                     float strideLength = Float.valueOf(strideEdit.getText().toString());
                     mapView.setStride(strideLength);
@@ -229,33 +238,42 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     };
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_collect:
-                startExtendData();
+                //startCollectData();
+                select_area();
                 break;
             case R.id.pick_map_button:
-                selectMapFromPhone();
+                //selectMapFromPhone();
+                startCollectData();
                 break;
             case R.id.help_stride:
-                Toast.makeText(ButtonActivity.this,getResources().getString(R.string.help_stride),Toast.LENGTH_SHORT).show();
+                showToast(getResources().getString(R.string.help_stride));
                 break;
             case R.id.help_data:
-                Toast.makeText(ButtonActivity.this,getResources().getString(R.string.help_data),Toast.LENGTH_SHORT).show();
+                showToast(getResources().getString(R.string.help_data));
                 break;
         }
     }
 
+    private void checkFinishedPoints() {
+        String type = typeRadioButton.isChecked() ? "已采集" : "已扩充";
+        List<Fingerprint> fingerprints = new ArrayList<>();
+        for (PointF p : Logger.getCollectedGrid(type)) {
+            fingerprints.add(new Fingerprint(p.x, p.y));
+        }
 
+        mapView.setFingerprintPoints(fingerprints);
+        showToast(type + " 指纹数: " + fingerprints.size());
+    }
     public void selectMapFromPhone() {
-        Toast.makeText(ButtonActivity.this,"请选择一张图片",Toast.LENGTH_SHORT).show();
+        showToast("请选择一张图片");
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_PICK_MAP);  //one can be replaced with any action code
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -267,7 +285,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
                     setMapWidthHeight(selectedImage);
                 } else {
                     this.finish();
-                    Toast.makeText(ButtonActivity.this,"你必须选择一张地图来进行定位",Toast.LENGTH_SHORT).show();
+                    showToast("你必须选择一张地图来进行定位");
                 }
                 break;
 
@@ -275,7 +293,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
-
     private void setMapWidthHeight(final Uri selectedImage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("地图信息");
@@ -310,6 +327,47 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
 
         builder.show();
     }
+    private void startCollectData() {
+        setGestureDetectorListener(false);
+        startButton.setClickable(false);
+
+        startButton.setText("测量中");
+        indoorCollectManager.setScanPeriodMills(DEFAULT_TRAIN_TIME);
+        indoorCollectManager.registerCollectorListener(new IndoorCollectManager.CollectorListener() {
+            @Override
+            public void onCollectFinished(final ArrayList<XWiFi> wifiData) {
+                indoorCollectManager.unregisterCollectorListener();
+                indoorCollectManager.stopScan();
+                setGestureDetectorListener(true);
+                saveFingerprintData(wifiData);
+            }
+        });
+
+        indoorCollectManager.startScan(true, true);
+    }
+    private void saveFingerprintData(final ArrayList<XWiFi> wifiData) {
+        PointF pos = mapView.getCurrentTCoord();
+        Fingerprint fingerprint = new Fingerprint(pos.x, pos.y);
+        fingerprint.wifiData = wifiData;
+
+        String type = typeRadioButton.isChecked() ? "train" : "test";
+        updateCollectStatus(fingerprint);
+        Logger.saveFingerprintData(type, fingerprint);
+    }
+
+    private void updateCollectStatus(final Fingerprint fingerprint) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                startButton.setClickable(true);
+                startButton.setText("选择区域 ");
+                mapView.addFingerprintPoint(fingerprint);
+            }
+        });
+    }
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
     //Pick picture from gallery is a uri not the actual file.
     private String getRealPathFromURI(Uri contentURI) {
@@ -341,6 +399,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
             mapView.setCurrentTPosition(new PointF(1.0f, 1.0f)); //initial current position
             xTextView.setText(String.format(Locale.ENGLISH, "X(max:%.1f)", width));
             yTextView.setText(String.format(Locale.ENGLISH, "Y(max:%.1f)", height));
+            checkFinishedPoints();
             setGestureDetectorListener(true);
         }
     }
@@ -381,6 +440,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         fingerprint.y=y;
         mapView.addFingerprintPoint(fingerprint);
     }
+
     private boolean ifUserInput = true;
 
     private void setTextWithoutTriggerListener() {
@@ -388,10 +448,10 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
 
         xEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().x));
         yEdit.setText(String.format(Locale.ENGLISH, "%.2f", mapView.getCurrentTCoord().y));
+
         ifUserInput = true;
     }
 
-    @Override
     protected void onRestart() {
         super.onRestart();
     }
@@ -399,5 +459,6 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        indoorCollectManager.stopCollectService();
     }
 }
