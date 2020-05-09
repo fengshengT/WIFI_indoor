@@ -30,7 +30,7 @@ import java.util.Timer;
 
 public class locationActivity extends AppCompatActivity {
 
-    TextView data;
+    TextView data,result;
     private Timer timer;
     private Button btn_show_menu;
 
@@ -45,7 +45,9 @@ public class locationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
         mapView = findViewById(R.id.mapImageView);
         data= (TextView)findViewById(R.id.data);
+        result= (TextView)findViewById(R.id.result);
         data.setText("定位与显示");
+        result.setText("定位结果(单位:m)为: "+"("+1.1234+","+1.1234+")");
         tryLoadOldMap();
     }
 
