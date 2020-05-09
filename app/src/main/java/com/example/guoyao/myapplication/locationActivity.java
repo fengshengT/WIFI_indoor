@@ -23,9 +23,7 @@ public class locationActivity extends AppCompatActivity {
     private Button btn_show_menu;
 
     //1.定义不同菜单项的标识:
-    final private int RED = 110;
     final private int GREEN = 111;
-    final private int BLUE = 112;
     final private int YELLOW = 113;
 
 
