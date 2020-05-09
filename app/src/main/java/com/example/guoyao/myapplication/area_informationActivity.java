@@ -391,7 +391,7 @@ public void  add_area() {
         if (bitmap != null) {
             mapView.setImage(ImageSource.bitmap(bitmap));
             mapView.initialCoordManager(width, height);
-            mapView.setCurrentTPosition(new PointF(1.0f, 1.0f)); //initial current position
+            //mapView.setCurrentTPosition(new PointF(1.0f, 1.0f)); //显示当前位置
             setGestureDetectorListener(true);
         }
     }
