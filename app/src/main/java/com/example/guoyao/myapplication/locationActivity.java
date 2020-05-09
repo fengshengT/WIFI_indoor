@@ -2,18 +2,30 @@ package com.example.guoyao.myapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.example.guoyao.myapplication.mapview.PinView;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 
 public class locationActivity extends AppCompatActivity {
@@ -31,8 +43,76 @@ public class locationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        mapView = findViewById(R.id.mapImageView);
         data= (TextView)findViewById(R.id.data);
         data.setText("定位与显示");
+        tryLoadOldMap();
+    }
+
+    private static final String MAP_INFO = "map_info";
+    private static final String MAP_PATH = "map_path";
+    private static final String MAP_WIDTH = "width";
+    private static final String MAP_height = "height";
+
+    private boolean tryLoadOldMap() {
+        SharedPreferences sharedPreferences = getSharedPreferences(MAP_INFO, MODE_PRIVATE);
+        String path = sharedPreferences.getString(MAP_PATH, null);
+        if (path == null)
+            return false;
+        else {
+            float width = sharedPreferences.getFloat(MAP_WIDTH, 0);
+            float height = sharedPreferences.getFloat(MAP_height, 0);
+            loadMapImage(Uri.fromFile(new File(path)), width, height);
+            return true;
+        }
+    }
+    private void loadMapImage(final Uri selectedImage, float width, float height) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (bitmap != null) {
+            mapView.setImage(ImageSource.bitmap(bitmap));
+            mapView.initialCoordManager(width, height);
+            mapView.setCurrentTPosition(new PointF(1.0f, 1.0f)); //initial current position
+            setGestureDetectorListener(true);
+        }
+    }
+
+    private PinView mapView;
+    private GestureDetector gestureDetector = null;
+
+    private void setGestureDetectorListener(boolean enable) {
+        if (!enable)
+            mapView.setOnTouchListener(null);
+        else {
+            if (gestureDetector == null) {
+                gestureDetector = new GestureDetector(locationActivity.this, new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        if (mapView.isReady()) {
+                            mapView.moveBySingleTap(e);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Single tap: Image not ready", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+            }
+
+            mapView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return gestureDetector.onTouchEvent(motionEvent);
+                }
+            });
+        }
+    }
+    protected void onRestart() {
+        super.onRestart();
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
