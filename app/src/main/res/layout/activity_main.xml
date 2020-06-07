@@ -7,27 +7,14 @@
     android:orientation="vertical">
     <Button
         android:id="@+id/btn_textview"
-        android:layout_width="380dp"
+        android:layout_width="350dp"
         android:layout_height="180dp"
         android:text="采集与管理"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:layout_gravity="center"
         android:drawableTop="@mipmap/main1_1"
         android:background="@drawable/txt_radiuborder"
-        android:textSize="30sp"/>
-
-        <Button
-            android:id="@+id/btn_button"
-            android:layout_width="380dp"
-            android:layout_height="180dp"
-            android:text="定位与显示"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginVertical="10dp"
-            android:drawableTop="@mipmap/main1_2"
-            android:background="@drawable/txt_radiuborder"
-            android:textSize="30sp"/>
+        android:textSize="25sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,23 +22,25 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_edittext"
-            android:layout_width="250dp"
-            android:layout_height="170dp"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
             android:text="选择接入点"
-            android:layout_gravity="left"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:drawableTop="@mipmap/main1_3"
             android:background="@drawable/txt_radiuborder"
-            android:textSize="18sp"/>
+            android:textSize="25sp"/>
         <Button
-            android:id="@+id/mSetting"
-            android:layout_width="120dp"
-            android:layout_height="170dp"
-            android:drawableTop="@mipmap/main1_4"
+            android:id="@+id/btn_button"
+            android:layout_width="200dp"
+            android:layout_height="180dp"
+            android:text="定位与显示"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:drawableTop="@mipmap/main1_2"
             android:background="@drawable/txt_radiuborder"
-            android:layout_marginLeft="13dp"
-            android:text="区域管理" />
+            android:textSize="25sp"/>
     </LinearLayout>
     </LinearLayout>
 

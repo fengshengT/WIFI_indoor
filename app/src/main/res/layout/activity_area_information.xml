@@ -66,17 +66,4 @@
             android:layout_marginTop="100sp" />
 
     </RelativeLayout>
-
-    <github.ishaan.buttonprogressbar.ButtonProgressBar
-        android:id="@+id/cl_main"
-        app:text="上传指纹库地图"
-        app:textColor="@android:color/white"
-        app:type="determinate"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

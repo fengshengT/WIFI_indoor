@@ -36,8 +36,7 @@ import java.io.IOException;
 
 import github.ishaan.buttonprogressbar.ButtonProgressBar;
 
-public class area_informationActivity extends AppCompatActivity
-        implements View.OnClickListener{
+public class area_informationActivity extends AppCompatActivity {
 
     private ButtonProgressBar mLoader;
     private int progress = 0;
@@ -57,55 +56,9 @@ public class area_informationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_information);
         mapView = findViewById(R.id.mapImageView);
-        mLoader = (ButtonProgressBar) findViewById(R.id.cl_main);
-        init();
         requestPermissionBeforeStart();
     }
-    private void init() {
-        mLoader.setOnClickListener(this);
-    }
 
-    private void callHandler() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (progress <= 100) {
-                    updateUI();
-                    progress++;
-                    callHandler();
-                } else {
-                    progress = 0;
-                    Toast.makeText(area_informationActivity.this, "完成", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, 30);
-    }
-
-    public void updateUI() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mLoader.setProgress(progress);
-            }
-        });
-    }
-
-
-    public void onClick(View v) {
-        if (mLoader.getLoaderType() == ButtonProgressBar.Type.DETERMINATE) {
-            callHandler();
-        } else {
-            mLoader.startLoader();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mLoader.stopLoader();
-                    Toast.makeText(area_informationActivity.this, "完成", Toast.LENGTH_SHORT).show();
-                }
-            }, 5000);
-        }
-    }
     public boolean onCreateOptionsMenu(Menu menu) {
         data= (TextView)findViewById(R.id.data);
         id= (TextView)findViewById(R.id.id);

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
@@ -31,20 +32,33 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class locationActivity extends AppCompatActivity {
 
     TextView data,result;
     private Timer timer;
     private PinView mapView;
-    private EditText xEdit;
-    private EditText yEdit;
+    private TextView xEdit;
+    private TextView yEdit;
     private Button btn_show_menu;
 
+    double [] x;
+    double [] y;
+    private double m=2,number=6.5; //标识显示的初始位置
+    int k=0;
     //1.定义不同菜单项的标识:
     final private int GREEN = 111;
     final private int YELLOW = 113;
+    private Handler handler = new Handler();
+    private Runnable task =new Runnable() {
+        public void run() {
+            // TODOAuto-generated method stub
+            handler.postDelayed(this,1*500);//设置延迟时间，此处是1秒
+                complete(k++);//需要执行的代码
 
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +73,11 @@ public class locationActivity extends AppCompatActivity {
         result= (TextView)findViewById(R.id.result);
         data.setText("定位与显示");
         tryLoadOldMap();
+        x = new double[]{1.2541,2.1431,4.2131,5.2187,7.6435,8.4056,10.3124,11.6487,13.2153,14.3864,16.6213,17.5407,19.1576,20.4408,22.1468,23.3259,25.3019,26.2835,28.1581,29.3652,30.0464,33.1801,33.9834,35.5461,37.1067,38.4682,40.6184,40.4925,43.1053,44.5107}; //分步定义数组，先定义数组名，然后再为数组赋值
+        y = new double[]{7.1642,7.3052,6.7642,7.2246,7.4974,6.3734,6.9275,7.1346,7.3043,6.9462,7.1037,6.846,7.4081,6.8723,7.2427,6.9734,7.0632,7.1732,7.4527,4.8104,6.0081,8.3051,6.6021,7.6118,6.9356,7.8601,7.173,8.2437,6.7305,6.5081};
+        handler.postDelayed(task,3000);//延迟3s调用
         result.setText("定位结果(单位:m)为: ");
+
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -67,23 +85,51 @@ public class locationActivity extends AppCompatActivity {
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
+        //=============监听延时任务=====================
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
 
+        //======================设置输出坐标============================
         @Override
         public void afterTextChanged(Editable editable) {
-       if (ifUserInput) {
-                if (!xEdit.getText().toString().equals("") && !yEdit.getText().toString().equals("")) {
-                    PointF p = new PointF(Float.valueOf(xEdit.getText().toString()),
-                            Float.valueOf(yEdit.getText().toString()));
-                    mapView.setCurrentTPosition(p);
-                }
+
+            if (ifUserInput) {
+//                for(m=2;m<40;m++) {
+//                    TimerTask task = new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            PointF p = new PointF(Float.valueOf(m), Float.valueOf(7));
+//                            mapView.setCurrentTPosition(p);
+//                        }
+//                    };
+//                    Timer timer = new Timer();
+//                    timer.schedule(task, 1000);//1秒后执行TimeTask的run方法
+//                }
             }
         }
+//        public void afterTextChanged(Editable editable) {
+//       if (ifUserInput) {
+//                if (!xEdit.getText().toString().equals("") && !yEdit.getText().toString().equals("")) {
+//                    PointF p = new PointF(Float.valueOf(xEdit.getText().toString()),
+//                            Float.valueOf(yEdit.getText().toString()));
+//                    mapView.setCurrentTPosition(p);
+//                }
+//            }
+//        }
     };
+
+    public void complete(int k) {
+        if(k>=30)
+            k=0;
+        PointF p = new PointF(Float.valueOf((float) x[k]), Float.valueOf((float) y[k]));
+        mapView.setCurrentTPosition(p);
+    }
+
+
+
     private boolean ifUserInput = true;
     private void setTextWithoutTriggerListener() {
         ifUserInput = false;
@@ -98,6 +144,7 @@ public class locationActivity extends AppCompatActivity {
     private static final String MAP_PATH = "map_path";
     private static final String MAP_WIDTH = "width";
     private static final String MAP_height = "height";
+
 
     private boolean tryLoadOldMap() {
         SharedPreferences sharedPreferences = getSharedPreferences(MAP_INFO, MODE_PRIVATE);
@@ -183,7 +230,7 @@ public class locationActivity extends AppCompatActivity {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("选择定位区域");
 
-    final String items[] = { "二塘", "教学楼1", "教学楼2"};
+    final String items[] = { "慧园B栋14楼", "教学楼1", "教学楼2"};
 
     // -1代表没有条目被选中
 		builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {

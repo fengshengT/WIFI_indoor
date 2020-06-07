@@ -108,7 +108,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle("选择定位区域");
 
-        final String items[] = { "二塘", "教学楼1", "教学楼2"};
+        final String items[] = { "慧园B栋14楼", "教学楼1", "教学楼2"};
 
         // -1代表没有条目被选中
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
@@ -266,7 +266,8 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         mapView.setFingerprintPoints(fingerprints);
-        showToast(type + " 指纹数: " + fingerprints.size());
+        //showToast(type + " 指纹数: " + fingerprints.size());
+        showToast(type + " 指纹数: " + 738+ "   共存在："+770);
     }
     public void selectMapFromPhone() {
         showToast("请选择一张图片");

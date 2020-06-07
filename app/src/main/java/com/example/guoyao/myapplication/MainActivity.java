@@ -87,15 +87,6 @@ public class MainActivity<string> extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mSetting = findViewById(R.id.mSetting);
-        mSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //跳转到EditText演示界面
-                Intent intent = new Intent(MainActivity.this, setting_Activity.class);
-                startActivity(intent);
-            }
-        });
 
 
     }
