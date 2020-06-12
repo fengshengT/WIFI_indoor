@@ -54,7 +54,7 @@ public class locationActivity extends AppCompatActivity {
     private Runnable task =new Runnable() {
         public void run() {
             // TODOAuto-generated method stub
-            handler.postDelayed(this,1*500);//设置延迟时间，此处是1秒
+            handler.postDelayed(this,1*1500);//设置延迟时间，此处是1.5秒
                 complete(k++);//需要执行的代码
 
         }
@@ -67,11 +67,8 @@ public class locationActivity extends AppCompatActivity {
         mapView = findViewById(R.id.mapImageView);
         xEdit = findViewById(R.id.position_x);
         yEdit = findViewById(R.id.position_y);
-        xEdit.addTextChangedListener(textWatcher);
-        yEdit.addTextChangedListener(textWatcher);
         data= (TextView)findViewById(R.id.data);
         result= (TextView)findViewById(R.id.result);
-        data.setText("定位与显示");
         tryLoadOldMap();
         x = new double[]{1.2541,2.1431,4.2131,5.2187,7.6435,8.4056,10.3124,11.6487,13.2153,14.3864,16.6213,17.5407,19.1576,20.4408,22.1468,23.3259,25.3019,26.2835,28.1581,29.3652,30.0464,33.1801,33.9834,35.5461,37.1067,38.4682,40.6184,40.4925,43.1053,44.5107}; //分步定义数组，先定义数组名，然后再为数组赋值
         y = new double[]{7.1642,7.3052,6.7642,7.2246,7.4974,6.3734,6.9275,7.1346,7.3043,6.9462,7.1037,6.846,7.4081,6.8723,7.2427,6.9734,7.0632,7.1732,7.4527,4.8104,6.0081,8.3051,6.6021,7.6118,6.9356,7.8601,7.173,8.2437,6.7305,6.5081};
@@ -123,9 +120,11 @@ public class locationActivity extends AppCompatActivity {
 
     public void complete(int k) {
         if(k>=30)
-            k=0;
+            k=29;
         PointF p = new PointF(Float.valueOf((float) x[k]), Float.valueOf((float) y[k]));
         mapView.setCurrentTPosition(p);
+        xEdit.setText("X: "+String.valueOf((float) x[k]));
+        yEdit.setText("Y: "+String.valueOf((float) y[k]));
     }
 
 

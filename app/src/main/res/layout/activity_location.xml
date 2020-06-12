@@ -33,24 +33,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="160dp"
         android:orientation="horizontal">
     <TextView
         android:id="@+id/position_x"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:inputType="numberDecimal"
-        android:textSize="20sp"
-        android:text="1.0"/>
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/position_y"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:inputType="numberDecimal"
-        android:textSize="20sp"
-        android:text="1.0" />
+        android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
