@@ -2,6 +2,7 @@ package com.example.guoyao.myapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -55,7 +56,8 @@ public class locationActivity extends AppCompatActivity {
         public void run() {
             // TODOAuto-generated method stub
             handler.postDelayed(this,1*1500);//设置延迟时间，此处是1.5秒
-                complete(k++);//需要执行的代码
+                //complete(k++);//需要执行的代码
+            area();
 
         }
     };
@@ -277,6 +279,26 @@ public class locationActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void  area() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle("该区域内无法读取信息 ");
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+
+
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(locationActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
